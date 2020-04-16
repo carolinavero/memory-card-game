@@ -32,6 +32,11 @@ h4 {
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
+a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+}
 .grid {
     display: flex;
     flex-wrap: wrap;
@@ -53,6 +58,16 @@ img {
 #replay {
     display: none;
     color: green;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+svg {
+    margin-bottom: 1rem;
 }
 
 @media(min-width: 600px) {

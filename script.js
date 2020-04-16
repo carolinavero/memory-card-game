@@ -68,18 +68,19 @@ document.addEventListener("DOMContentLoaded", () => {
         },
     ]
     
-    cardArray.sort(() => 0.5 - Math.random()) 
 
     const grid = document.querySelector('.grid')
     const resultDisplay = document.querySelector('#result')
-    const replayGame = document.querySelector('#replay')
+    const gameOver = document.querySelector('#replay')
+    const restartButton = document.querySelector('.restart')
 
     var cardsChosen = []
     var cardsChosenId = []
     var cardsWon = []
-
+   
     // create the board 
     function createBoard() {
+        cardArray.sort(() => 0.5 - Math.random()) 
         for (let i  = 0; i < cardArray.length; i++) {
             var card = document.createElement('img')
             card.setAttribute('src', 'img/blank.png')
@@ -87,6 +88,17 @@ document.addEventListener("DOMContentLoaded", () => {
             card.addEventListener('click', flipCard) 
             grid.appendChild(card)
         }
+    }
+
+    // restart 
+    function restartGame() {
+        cards = []
+        cardsChosen = []
+        cardsChosenId = []
+        cardsWon = []
+        resultDisplay.textContent = 0
+        grid.innerHTML = ''
+        createBoard()
     }
 
     //check for matches
@@ -97,6 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (cardsChosen[0] === cardsChosen[1] && cardsChosenId[0] != cardsChosenId[1]) {
             cardsWon.push(cardsChosen)
+            cards[optionOneId].style.pointerEvents = 'none';
+            cards[optionTwoId].style.pointerEvents = 'none';
+            cards[optionOneId].style.cursor = 'not-allowed';
+            cards[optionTwoId].style.cursor = 'not-allowed';
         } else {
             cards[optionOneId].setAttribute('src', 'img/blank.png')
             cards[optionTwoId].setAttribute('src', 'img/blank.png')
@@ -106,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resultDisplay.textContent = cardsWon.length
 
         if(cardsWon.length === cardArray.length/2) {
-            replayGame.style.display = 'block'
+            gameOver.style.display = 'block'
         }
     }
     //flip card 
@@ -121,8 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    createBoard()
-
-
+    restartButton.addEventListener('click', restartGame);
+    createBoard();
 
 })
